@@ -9,9 +9,13 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Formik, Form } from "formik";
+import { object, string } from "yup";
 
 const Login = () => {
-  const loginSchema = {};
+  const loginSchema = object({
+    password: string().required(),
+    email: string().email("Lütfen geçerli bir email giriniz.").required(),
+  });
 
   return (
     <Container maxWidth="lg">
@@ -53,12 +57,12 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
-              console.log(values);
+              actions.resetForm();
+              actions.setSubmitting(false);
             }}
           >
-            {() => (
+            {({ isSubmitting, handleChange, values, touched, errors }) => (
               <Form>
-                {" "}
                 <Box
                   component="form"
                   sx={{ display: "flex", flexDirection: "column", gap: 2 }}
@@ -69,6 +73,10 @@ const Login = () => {
                     id="email"
                     type="email"
                     variant="outlined"
+                    onChange={handleChange}
+                    value={values.email}
+                    error={touched.email && errors.email}
+                    helperText={errors.email}
                   />
                   <TextField
                     label="password"
@@ -76,8 +84,16 @@ const Login = () => {
                     id="password"
                     type="password"
                     variant="outlined"
+                    onChange={handleChange}
+                    value={values.password}
+                    error={touched.email && Boolean(errors.password)}
+                    helperText={errors.password}
                   />
-                  <Button variant="contained" type="submit">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     Submit
                   </Button>
                 </Box>
