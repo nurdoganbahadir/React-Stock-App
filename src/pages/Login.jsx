@@ -13,7 +13,7 @@ import { object, string } from "yup";
 
 const Login = () => {
   const loginSchema = object({
-    password: string().required(),
+    password: string().required().min(8).max(16),
     email: string().email("Lütfen geçerli bir email giriniz.").required(),
   });
 
@@ -61,12 +61,16 @@ const Login = () => {
               actions.setSubmitting(false);
             }}
           >
-            {({ isSubmitting, handleChange, values, touched, errors }) => (
+            {({
+              isSubmitting,
+              handleChange,
+              values,
+              touched,
+              errors,
+              handleBlur,
+            }) => (
               <Form>
-                <Box
-                  component="form"
-                  sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-                >
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
                     label="Email"
                     name="email"
@@ -75,8 +79,9 @@ const Login = () => {
                     variant="outlined"
                     onChange={handleChange}
                     value={values.email}
-                    error={touched.email && errors.email}
-                    helperText={errors.email}
+                    onBlur={handleBlur}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
                   />
                   <TextField
                     label="password"
@@ -86,8 +91,9 @@ const Login = () => {
                     variant="outlined"
                     onChange={handleChange}
                     value={values.password}
-                    error={touched.email && Boolean(errors.password)}
-                    helperText={errors.password}
+                    onBlur={handleBlur}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
                   />
                   <Button
                     variant="contained"
