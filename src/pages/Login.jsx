@@ -10,8 +10,11 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
+import useApiRequests from "../services/useApiRequests";
 
 const Login = () => {
+  const { login } = useApiRequests();
+
   const loginSchema = object({
     password: string()
       .required("Şifre zorunludur.")
@@ -20,8 +23,8 @@ const Login = () => {
       .matches(/[a-z]+/, "Şifre en az bir küçük harf içermelidir")
       .matches(/[A-Z]+/, "Şifre en az bir büyük harf içermelidir")
       .matches(
-        /[@$!%*?&]+/,
-        "Şifre en az bir özel karakter (@$!%*?&) içermelidir"
+        /[@$!%*?&.,]+/,
+        "Şifre en az bir özel karakter (@$!%*?&.,) içermelidir"
       ),
     email: string()
       .email("Lütfen geçerli bir email giriniz.")
@@ -68,6 +71,8 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
+              login(values);
+
               actions.resetForm();
               actions.setSubmitting(false);
             }}
