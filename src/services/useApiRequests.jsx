@@ -49,7 +49,16 @@ const useApiRequests = () => {
     }
   };
 
-  return { login, register };
+  const logout = async () => {
+    try {
+      const { data } = await axios(
+        `${process.env.REACT_APP_BASE_URL}/auth/logout/`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { login, register, logout };
 };
 
 export default useApiRequests;
