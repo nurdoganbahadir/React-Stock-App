@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
 
-
 const useApiRequests = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const login = async (userData) => {
-
-
+    
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
