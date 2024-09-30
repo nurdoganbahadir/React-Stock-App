@@ -9,7 +9,6 @@ const useApiRequests = () => {
   const dispatch = useDispatch();
 
   const login = async (userData) => {
-    
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
@@ -27,7 +26,22 @@ const useApiRequests = () => {
     }
   };
 
-  const register = async (userData) => {};
+  const register = async (userData) => {
+    console.log(userData);
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users/`,
+        userData
+      );
+      toastSuccessNotify("Register işlemi başarıyla sonuçlandı.");
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      toastErrorNotify("Register işlemi başarısız oldu.");
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
 
   return { login, register };
 };

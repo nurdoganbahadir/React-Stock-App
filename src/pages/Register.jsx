@@ -18,7 +18,7 @@ const Register = () => {
   const { register } = useApiRequests();
 
   const registerSchema = object({
-    userName: string()
+    username: string()
       .required("User Name zorunludur.")
       .min(6, "User name en az 6 karakter uzunluğunda olmalıdır.")
       .max(16, "User name en fazla 16 karakter uzunluğunda olmalıdır."),
@@ -31,7 +31,7 @@ const Register = () => {
       .matches(/[a-z]+/, "Şifre en az bir küçük harf içermelidir")
       .matches(/[A-Z]+/, "Şifre en az bir büyük harf içermelidir")
       .matches(
-        /[@$!%*?&.,]+/,
+        /[@$!%*?&,]+/,
         "Şifre en az bir özel karakter (@$!%*?&.,) içermelidir"
       ),
     email: string()
@@ -78,7 +78,7 @@ const Register = () => {
           </Typography>
           <Formik
             initialValues={{
-              userName: "",
+              username: "",
               firstName: "",
               lastName: "",
               email: "",
@@ -103,15 +103,15 @@ const Register = () => {
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
                     label="User Name"
-                    name="userName"
-                    id="userName"
+                    name="username"
+                    id="username"
                     type="text"
                     variant="outlined"
                     onChange={handleChange}
-                    value={values.userName}
+                    value={values.username}
                     onBlur={handleBlur}
-                    error={touched.userName && Boolean(errors.userName)}
-                    helperText={errors.userName}
+                    error={touched.username && Boolean(errors.username)}
+                    helperText={errors.username}
                   />
                   <TextField
                     label="First Name"
