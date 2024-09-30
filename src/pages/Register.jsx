@@ -6,10 +6,10 @@ import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import TextField from "@mui/material/TextField";
-import {Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import useApiRequests from "../services/useApiRequests";
 
 const Register = () => {

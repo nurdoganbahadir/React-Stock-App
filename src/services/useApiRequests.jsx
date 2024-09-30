@@ -2,7 +2,12 @@ import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import {
+  fetchFail,
+  fetchStart,
+  loginSuccess,
+  registerSuccess,
+} from "../features/authSlice";
 
 const useApiRequests = () => {
   const navigate = useNavigate();
@@ -36,6 +41,7 @@ const useApiRequests = () => {
       toastSuccessNotify("Register işlemi başarıyla sonuçlandı.");
       navigate("/");
       console.log(data);
+      dispatch(registerSuccess());
     } catch (error) {
       toastErrorNotify("Register işlemi başarısız oldu.");
       dispatch(fetchFail());
