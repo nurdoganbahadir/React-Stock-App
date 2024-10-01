@@ -87,7 +87,7 @@ const RegisterForm = ({
           helperText={errors.email}
         />
         <TextField
-          label="password"
+          label="Password"
           name="password"
           id="password"
           type="password"
@@ -98,12 +98,20 @@ const RegisterForm = ({
           error={touched.password && Boolean(errors.password)}
           helperText={errors.password}
         />
-        <Button type="submit" variant="contained" size="large">
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          sx={{
+            backgroundColor: "#0367A6",
+            "&:hover": { backgroundColor: "#023373" },
+          }}
+        >
           Submit
         </Button>
       </Box>
     </Form>
-  )
+  );
 }
 
 export default RegisterForm

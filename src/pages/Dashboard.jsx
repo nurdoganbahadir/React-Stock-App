@@ -74,7 +74,7 @@ function ResponsiveDrawer(props) {
             STOCK APP
           </Typography>
           {username && (
-            <Button color="error" onClick={logout}>
+            <Button sx={{ color: "#43AED9" }} onClick={logout}>
               <LogoutIcon />
             </Button>
           )}

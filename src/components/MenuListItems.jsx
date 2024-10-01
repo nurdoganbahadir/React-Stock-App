@@ -3,13 +3,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import AppsIcon from "@mui/icons-material/Apps";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import StoreIcon from "@mui/icons-material/Store";
 import StarsIcon from "@mui/icons-material/Stars";
 import { useNavigate } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 const MenuListItems = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const MenuListItems = () => {
   const icons = [
     {
       title: "Dashboard",
-      icon: <AppsIcon />,
+      icon: <DashboardIcon />,
       path: "/stock",
     },
     {
@@ -27,7 +27,7 @@ const MenuListItems = () => {
     },
     {
       title: "Sales",
-      icon: <AttachMoneyIcon />,
+      icon: <MonetizationOnIcon />,
       path: "/stock/sales/",
     },
     {
@@ -55,9 +55,10 @@ const MenuListItems = () => {
             key={index}
             disablePadding
             onClick={() => navigate(item.path)}
+            sx={{ color: "#0367A6" }}
           >
             <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: "#023373" }}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
             </ListItemButton>
           </ListItem>

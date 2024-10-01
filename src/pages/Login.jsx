@@ -2,7 +2,7 @@ import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import LockIcon from "@mui/icons-material/Lock";
+import Face6Icon from "@mui/icons-material/Face6";
 import image from "../assets/result.svg";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -57,7 +57,7 @@ const Login = () => {
               height: 40,
             }}
           >
-            <LockIcon size="30" />
+            <Face6Icon size="30" />
           </Avatar>
           <Typography
             variant="h4"
@@ -100,7 +100,7 @@ const Login = () => {
                     helperText={errors.email}
                   />
                   <TextField
-                    label="password"
+                    label="Password"
                     name="password"
                     id="password"
                     type="password"
@@ -115,6 +115,7 @@ const Login = () => {
                     variant="contained"
                     type="submit"
                     disabled={isSubmitting}
+                    sx={{ backgroundColor: "#023373" }}
                   >
                     Submit
                   </Button>
