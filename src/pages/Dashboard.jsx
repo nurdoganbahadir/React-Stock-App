@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import useApiRequests from "../services/useApiRequests";
 import MenuListItems from "../components/MenuListItems";
 import { Outlet } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -44,8 +46,6 @@ function ResponsiveDrawer(props) {
       <MenuListItems />
     </div>
   );
-
-  // Remove this const when copying and pasting into your project.
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -74,8 +74,8 @@ function ResponsiveDrawer(props) {
             STOCK APP
           </Typography>
           {username && (
-            <Button color="inherit" onClick={logout}>
-              Logout
+            <Button color="error" onClick={logout}>
+              <LogoutIcon />
             </Button>
           )}
         </Toolbar>
@@ -85,7 +85,6 @@ function ResponsiveDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -93,7 +92,7 @@ function ResponsiveDrawer(props) {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

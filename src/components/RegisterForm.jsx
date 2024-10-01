@@ -25,7 +25,7 @@ export const registerSchema = object({
     .matches(/\d+/, "Şifre bir sayı içermelidir")
     .matches(/[a-z]/, "Şifre bir küçük harf içermelidir")
     .matches(/[A-Z]/, "Şifre bir büyük harf içermelidir")
-    .matches(/[!/[@$!%*?&]+/, "Şifre bir özel karakter içermelidir"),
+    .matches(/[!/[@$!%*?&,]+/, "Şifre bir özel karakter içermelidir"),
 })
 
 const RegisterForm = ({
@@ -41,7 +41,7 @@ const RegisterForm = ({
         <TextField
           label="User Name"
           name="username"
-          id="userName"
+          id="username"
           type="text"
           variant="outlined"
           value={values.username}
