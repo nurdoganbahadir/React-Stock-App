@@ -14,6 +14,8 @@ import { Formik, Form } from "formik";
 import useApiRequests from "../services/useApiRequests";
 import { object, string } from "yup";
 import { TextField } from "@mui/material";
+import { addFirmSuccess } from "../features/authSlice";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -31,13 +33,15 @@ const style = {
 };
 
 const Firm = () => {
+  const { firms } = useSelector((state) => state.auth);
+  console.log(firms.data);
   const { addFirm } = useApiRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const firmSchema = object({
-    firmName: string().required("Firma ismi zorunludur."),
+    name: string().required("Firma ismi zorunludur."),
     phone: string().required("Telefon numarası zorunludur."),
     address: string().required("Adres bilgisi zorunludur."),
     image: string().required("Firma görseli zorunludur."),
@@ -56,7 +60,7 @@ const Firm = () => {
         aria-describedby="modal-modal-description"
       >
         <Formik
-          initialValues={{ firmName: "", phone: "", address: "", image: "" }}
+          initialValues={{ name: "", phone: "", address: "", image: "" }}
           validationSchema={firmSchema}
           onSubmit={(values, actions) => {
             addFirm(values);
@@ -76,15 +80,15 @@ const Firm = () => {
               <Box sx={style}>
                 <TextField
                   label="Firma adı"
-                  name="firmName"
-                  id="firmName"
+                  name="name"
+                  id="name"
                   type="text"
                   variant="outlined"
                   onChange={handleChange}
-                  value={values.firmName}
+                  value={values.name}
                   onBlur={handleBlur}
-                  error={touched.firmName && Boolean(errors.firmName)}
-                  helperText={errors.firmName}
+                  error={touched.name && Boolean(errors.name)}
+                  helperText={errors.name}
                 />
                 <TextField
                   label="Telefon numarası"
@@ -135,29 +139,28 @@ const Firm = () => {
           )}
         </Formik>
       </Modal>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardHeader
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
-        />
-        <CardActions
-          disableSpacing
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          <IconButton aria-label="add to favorites">
-            <DeleteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <EditIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
+      {firms.data.map((firm) => (
+        <Card sx={{ maxWidth: 345 }} key={firm.id}>
+          <CardHeader title={firm.name} subheader="September 14, 2016" />
+          <CardMedia
+            component="img"
+            height="194"
+            image={firm.image}
+            alt="Paella dish"
+          />
+          <CardActions
+            disableSpacing
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <IconButton aria-label="add to favorites">
+              <DeleteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <EditIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      ))}
     </>
   );
 };

@@ -23,7 +23,7 @@ const authSlice = createSlice({
       state.username = payload.data.username;
       state.loading = false;
     },
-    logoutSuccess: (state, { payload }) => {
+    logoutSuccess: (state) => {
       state.token = "";
       state.username = "";
       state.loading = false;
@@ -32,9 +32,25 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    addFirmSuccess: (state, action) => {
+      state.token = "";
+      state.firms = [...state.firms, action.payload];
+      state.loading = false;
+    },
+    firmListSuccess: (state, action) => {
+      state.firms = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { fetchStart, loginSuccess, fetchFail, registerSuccess, logoutSuccess } =
-  authSlice.actions;
+export const {
+  fetchStart,
+  loginSuccess,
+  fetchFail,
+  registerSuccess,
+  logoutSuccess,
+  addFirmSuccess,
+  firmListSuccess,
+} = authSlice.actions;
 export default authSlice.reducer;

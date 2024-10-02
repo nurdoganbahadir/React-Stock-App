@@ -3,12 +3,15 @@ import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addFirmSuccess,
   fetchFail,
   fetchStart,
+  firmListSuccess,
   loginSuccess,
   logoutSuccess,
   registerSuccess,
 } from "../features/authSlice";
+import { useEffect } from "react";
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL, // Tüm istekler için temel URL
@@ -33,7 +36,6 @@ const useApiRequests = () => {
       toastSuccessNotify("Login işlemi başarılı");
       dispatch(loginSuccess(data));
       navigate("stock");
-      console.log(data);
     } catch (error) {
       toastErrorNotify("Login işlemi başarısız");
       dispatch(fetchFail());
@@ -42,7 +44,6 @@ const useApiRequests = () => {
   };
 
   const register = async (userData) => {
-    console.log(userData);
     try {
       const { data } = await client.post(`/users/`, userData);
       toastSuccessNotify("Register işlemi başarıyla sonuçlandı.");
@@ -70,9 +71,37 @@ const useApiRequests = () => {
   };
 
   //!firms
-  const addFirm = async () => {};
+  const addFirm = async (firmData) => {
+    try {
+      const {data} = await client.post(`/firms/`, firmData);
+      toastSuccessNotify("Firma başarıyla eklendi");
+      navigate("/stock/firms/");
+      dispatch(addFirmSuccess(data));
+    } catch (error) {
+      toastErrorNotify("Firma eklemesi başarısız oldu.");
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
 
-  return { login, register, logout };
+  const getFirm = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await client.get(`/firms/`);
+      toastSuccessNotify("Firma listeleme başarılı");
+      dispatch(firmListSuccess(data));
+    } catch (error) {
+      toastErrorNotify("Firmalar görüntülenirken bir hata oluştu.");
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFirm();
+  }, []);
+
+  return { login, register, logout, addFirm, getFirm };
 };
 
 export default useApiRequests;
