@@ -1,4 +1,3 @@
-
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import * as React from "react";
 import Card from "@mui/material/Card";
@@ -11,7 +10,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Formik, Form } from "formik";
+import useApiRequests from "../services/useApiRequests";
+import { object, string } from "yup";
+import { TextField } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -23,12 +25,23 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
 };
 
 const Firm = () => {
+  const { addFirm } = useApiRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const firmSchema = object({
+    firmName: string().required("Firma ismi zorunludur."),
+    phone: string().required("Telefon numarası zorunludur."),
+    address: string().required("Adres bilgisi zorunludur."),
+    image: string().required("Firma görseli zorunludur."),
+  });
 
   return (
     <>
@@ -42,14 +55,85 @@ const Firm = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <Formik
+          initialValues={{ firmName: "", phone: "", address: "", image: "" }}
+          validationSchema={firmSchema}
+          onSubmit={(values, actions) => {
+            addFirm(values);
+            actions.resetForm();
+            actions.setSubmitting(false);
+          }}
+        >
+          {({
+            isSubmitting,
+            handleChange,
+            values,
+            touched,
+            errors,
+            handleBlur,
+          }) => (
+            <Form>
+              <Box sx={style}>
+                <TextField
+                  label="Firma adı"
+                  name="firmName"
+                  id="firmName"
+                  type="text"
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={values.firmName}
+                  onBlur={handleBlur}
+                  error={touched.firmName && Boolean(errors.firmName)}
+                  helperText={errors.firmName}
+                />
+                <TextField
+                  label="Telefon numarası"
+                  name="phone"
+                  id="phone"
+                  type="text"
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={values.phone}
+                  onBlur={handleBlur}
+                  error={touched.phone && Boolean(errors.phone)}
+                  helperText={errors.phone}
+                />
+                <TextField
+                  label="Adres"
+                  name="address"
+                  id="address"
+                  type="text"
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={values.address}
+                  onBlur={handleBlur}
+                  error={touched.address && Boolean(errors.address)}
+                  helperText={errors.address}
+                />
+                <TextField
+                  label="Firma logosu"
+                  name="image"
+                  id="image"
+                  type="text"
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={values.image}
+                  onBlur={handleBlur}
+                  error={touched.image && Boolean(errors.image)}
+                  helperText={errors.image}
+                />
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isSubmitting}
+                  sx={{ backgroundColor: "#023373" }}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
       </Modal>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader

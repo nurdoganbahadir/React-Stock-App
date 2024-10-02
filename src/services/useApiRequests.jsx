@@ -12,7 +12,6 @@ import {
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL, // Tüm istekler için temel URL
-  
 });
 
 const useApiRequests = () => {
@@ -70,18 +69,8 @@ const useApiRequests = () => {
     }
   };
 
-
-
   //!firms
-  
-
-
-
-
-
-
-
-
+  const addFirm = async () => {};
 
   return { login, register, logout };
 };
