@@ -139,28 +139,56 @@ const Firm = () => {
           )}
         </Formik>
       </Modal>
-      {firms.data.map((firm) => (
-        <Card sx={{ maxWidth: 345 }} key={firm.id}>
-          <CardHeader title={firm.name} subheader="September 14, 2016" />
-          <CardMedia
-            component="img"
-            height="194"
-            image={firm.image}
-            alt="Paella dish"
-          />
-          <CardActions
-            disableSpacing
-            sx={{ display: "flex", justifyContent: "center" }}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "2",
+        }}
+      >
+        {firms.data.map((firm) => (
+          <Card
+            sx={{
+              width: "345px",
+              maxWidth: 345,
+              maxHeight: 400,
+              margin: "10px",
+            }}
+            key={firm.id}
           >
-            <IconButton aria-label="add to favorites">
-              <DeleteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <EditIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
-      ))}
+            <CardHeader
+              sx={{ height: "150px" }}
+              title={firm.name}
+              subheader={firm.address}
+            />
+            <CardMedia
+              component="img"
+              height="194"
+              image={firm.image}
+              alt={firm.name}
+              sx={{
+                width: "100%",
+                height: "150px",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            />
+            <CardActions
+              disableSpacing
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <IconButton aria-label="add to favorites">
+                <DeleteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <EditIcon />
+              </IconButton>
+            </CardActions>
+          </Card>
+        ))}
+      </Box>
     </>
   );
 };
