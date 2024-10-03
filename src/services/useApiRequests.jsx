@@ -73,7 +73,7 @@ const useApiRequests = () => {
   //!firms
   const addFirm = async (firmData) => {
     try {
-      const {data} = await client.post(`/firms/`, firmData);
+      const { data } = await client.post(`/firms/`, firmData);
       toastSuccessNotify("Firma başarıyla eklendi");
       navigate("/stock/firms/");
       dispatch(addFirmSuccess(data));

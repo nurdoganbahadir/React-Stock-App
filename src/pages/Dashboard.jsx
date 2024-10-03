@@ -15,7 +15,7 @@ import MenuListItems from "../components/MenuListItems";
 import { Outlet } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 function ResponsiveDrawer(props) {
   const { username } = useSelector((state) => state.auth);
