@@ -11,11 +11,11 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
-import useApiRequests from "../services/useApiRequests";
 import { object, string } from "yup";
 import { TextField } from "@mui/material";
-import { addFirmSuccess } from "../features/authSlice";
 import { useSelector } from "react-redux";
+import useStockRequests from "../services/useStockRequests";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -33,12 +33,13 @@ const style = {
 };
 
 const Firm = () => {
-  const { firms } = useSelector((state) => state.auth);
-  console.log(firms.data);
-  const { addFirm } = useApiRequests();
+  const { firms } = useSelector((state) => state.stock);
+  const { getStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  console.log(firms);
 
   const firmSchema = object({
     name: string().required("Firma ismi zorunludur."),
@@ -46,6 +47,10 @@ const Firm = () => {
     address: string().required("Adres bilgisi zorunludur."),
     image: string().required("Firma görseli zorunludur."),
   });
+
+  useEffect(() => {
+    getStock("firms");
+  }, []);
 
   return (
     <>
@@ -63,7 +68,7 @@ const Firm = () => {
           initialValues={{ name: "", phone: "", address: "", image: "" }}
           validationSchema={firmSchema}
           onSubmit={(values, actions) => {
-            addFirm(values);
+            // postStock(values);
             actions.resetForm();
             actions.setSubmitting(false);
           }}
@@ -148,46 +153,50 @@ const Firm = () => {
           gap: "2",
         }}
       >
-        {firms.data.map((firm) => (
-          <Card
-            sx={{
-              width: "345px",
-              maxWidth: 345,
-              maxHeight: 400,
-              margin: "10px",
-            }}
-            key={firm.id}
-          >
-            <CardHeader
-              sx={{ height: "150px" }}
-              title={firm.name}
-              subheader={firm.address}
-            />
-            <CardMedia
-              component="img"
-              height="194"
-              image={firm.image}
-              alt={firm.name}
+        {firms && firms.length > 0 ? (
+          firms.map((firm) => (
+            <Card
               sx={{
-                width: "100%",
-                height: "150px",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
+                width: "345px",
+                maxWidth: 345,
+                maxHeight: 400,
+                margin: "10px",
               }}
-            />
-            <CardActions
-              disableSpacing
-              sx={{ display: "flex", justifyContent: "center" }}
+              key={firm.id}
             >
-              <IconButton aria-label="add to favorites">
-                <DeleteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <EditIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
-        ))}
+              <CardHeader
+                sx={{ height: "150px" }}
+                title={firm.name}
+                subheader={firm.address}
+              />
+              <CardMedia
+                component="img"
+                height="194"
+                image={firm.image}
+                alt={firm.name}
+                sx={{
+                  width: "100%",
+                  height: "150px",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                }}
+              />
+              <CardActions
+                disableSpacing
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton aria-label="edit">
+                  <EditIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          ))
+        ) : (
+          <p>Veri yükleniyor veya firma bulunamadı.</p>
+        )}
       </Box>
     </>
   );

@@ -32,15 +32,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
-    addFirmSuccess: (state, action) => {
-      state.token = "";
-      state.firms = [...state.firms, action.payload];
-      state.loading = false;
-    },
-    firmListSuccess: (state, action) => {
-      state.firms = action.payload;
-      state.loading = false;
-    },
+    
   },
 });
 
@@ -50,7 +42,5 @@ export const {
   fetchFail,
   registerSuccess,
   logoutSuccess,
-  addFirmSuccess,
-  firmListSuccess,
 } = authSlice.actions;
 export default authSlice.reducer;
