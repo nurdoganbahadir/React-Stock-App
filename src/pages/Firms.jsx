@@ -34,12 +34,10 @@ const style = {
 
 const Firm = () => {
   const { firms } = useSelector((state) => state.stock);
-  const { getStock } = useStockRequests();
+  const { getStock, postStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  console.log(firms);
 
   const firmSchema = object({
     name: string().required("Firma ismi zorunludur."),
@@ -47,6 +45,8 @@ const Firm = () => {
     address: string().required("Adres bilgisi zorunludur."),
     image: string().required("Firma görseli zorunludur."),
   });
+
+  console.log(firms);
 
   useEffect(() => {
     getStock("firms");
@@ -68,7 +68,7 @@ const Firm = () => {
           initialValues={{ name: "", phone: "", address: "", image: "" }}
           validationSchema={firmSchema}
           onSubmit={(values, actions) => {
-            // postStock(values);
+            postStock("firms", values);
             actions.resetForm();
             actions.setSubmitting(false);
           }}
