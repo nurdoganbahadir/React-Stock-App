@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import {
+  deleteStockSuccess,
   fetchFail,
   fetchStart,
   getStockSuccess,
   postStockSuccess,
 } from "../features/stockSlice";
 import useAxios from "./useAxios";
-
 
 const useStockRequests = () => {
   const { axiosToken } = useAxios();
@@ -25,7 +25,6 @@ const useStockRequests = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosToken.post(path, values);
-      console.log(data);
       dispatch(postStockSuccess({ data: data.data, path }));
     } catch (error) {
       dispatch(fetchFail());
@@ -35,9 +34,8 @@ const useStockRequests = () => {
   const deleteStock = async (path, id) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosToken.delete(`${path}/${{id}}`);
-      console.log(data);
-      dispatch(getStockSuccess({ data: data.data, path }));
+      await axiosToken.delete(`${path}/${id}`);
+      dispatch(deleteStockSuccess({ path, id }));
     } catch (error) {
       dispatch(fetchFail());
       console.log(error);

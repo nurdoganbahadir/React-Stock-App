@@ -39,7 +39,6 @@ const Firm = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(firms);
 
   const firmSchema = object({
     name: string().required("Firma ismi zorunludur."),
@@ -48,9 +47,10 @@ const Firm = () => {
     image: string().required("Firma görseli zorunludur."),
   });
 
+
   useEffect(() => {
     getStock("firms");
-  }, []);
+  }, [firms]);
 
   return (
     <>
@@ -163,7 +163,7 @@ const Firm = () => {
                 maxHeight: 400,
                 margin: "10px",
               }}
-              key={firm.id}
+              key={firm._id}
             >
               <CardHeader
                 sx={{ height: "150px" }}
@@ -186,7 +186,10 @@ const Firm = () => {
                 disableSpacing
                 sx={{ display: "flex", justifyContent: "center" }}
               >
-                <IconButton aria-label="delete" onClick={() => dispatch(deleteStock("firms",firm.id))}>
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => deleteStock("firms", firm._id)}
+                >
                   <DeleteIcon />
                 </IconButton>
                 <IconButton aria-label="edit">
