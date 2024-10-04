@@ -14,7 +14,7 @@ const useApiRequests = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
-  console.log(token);
+
   const login = async (userData) => {
     dispatch(fetchStart());
     try {

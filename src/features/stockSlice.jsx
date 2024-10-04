@@ -22,10 +22,6 @@ const stockSlice = createSlice({
       state.loading = false;
       state[payload.path] = payload.data;
     },
-    postStockSuccess: (state, { payload }) => {
-      state.loading = false;
-      state[payload.path] = [...state[payload.path], payload.data];
-    },
     
     fetchFail: (state) => {
       state.loading = false;
@@ -39,7 +35,6 @@ export const {
   getStockSuccess,
   fetchFail,
   postStockSuccess,
-  deleteStockSuccess,
 } = stockSlice.actions;
 
 export default stockSlice.reducer;
