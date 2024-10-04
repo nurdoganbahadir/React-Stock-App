@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
 import { TextField } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
 
@@ -33,11 +33,13 @@ const style = {
 };
 
 const Firm = () => {
+  const dispatch = useDispatch();
   const { firms } = useSelector((state) => state.stock);
-  const { getStock, postStock } = useStockRequests();
+  const { getStock, postStock, deleteStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(firms);
 
   const firmSchema = object({
     name: string().required("Firma ismi zorunludur."),
@@ -45,8 +47,6 @@ const Firm = () => {
     address: string().required("Adres bilgisi zorunludur."),
     image: string().required("Firma görseli zorunludur."),
   });
-
-  console.log(firms);
 
   useEffect(() => {
     getStock("firms");
@@ -71,6 +71,7 @@ const Firm = () => {
             postStock("firms", values);
             actions.resetForm();
             actions.setSubmitting(false);
+            handleClose();
           }}
         >
           {({
@@ -185,7 +186,7 @@ const Firm = () => {
                 disableSpacing
                 sx={{ display: "flex", justifyContent: "center" }}
               >
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={() => dispatch(deleteStock("firms",firm.id))}>
                   <DeleteIcon />
                 </IconButton>
                 <IconButton aria-label="edit">
