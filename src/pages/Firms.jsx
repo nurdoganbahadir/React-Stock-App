@@ -1,4 +1,5 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -13,7 +14,7 @@ import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
 import { TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
 
@@ -33,7 +34,6 @@ const style = {
 };
 
 const Firm = () => {
-  const dispatch = useDispatch();
   const { firms } = useSelector((state) => state.stock);
   const { getStock, postStock, deleteStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
@@ -138,7 +138,7 @@ const Firm = () => {
                   disabled={isSubmitting}
                   sx={{ backgroundColor: "#023373" }}
                 >
-                  Submit
+                  <CheckCircleIcon />
                 </Button>
               </Box>
             </Form>
