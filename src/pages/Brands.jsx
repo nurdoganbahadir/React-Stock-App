@@ -122,7 +122,7 @@ const Brands = () => {
       <Grid container spacing={1}>
         {brands && brands.length > 0 ? (
           brands.map((brand) => (
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={4} xl={2}>
               <Card>
                 <CardMedia
                   sx={{ height: 140 }}
