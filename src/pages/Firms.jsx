@@ -1,22 +1,16 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
 import { TextField } from "@mui/material";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
+import FirmCard from "../components/Firms/FirmCard";
 
 const style = {
   position: "absolute",
@@ -35,7 +29,7 @@ const style = {
 
 const Firm = () => {
   const { firms } = useSelector((state) => state.stock);
-  const { getStock, postStock, deleteStock } = useStockRequests();
+  const { getStock, postStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,7 +40,6 @@ const Firm = () => {
     address: string().required("Adres bilgisi zorunludur."),
     image: string().required("Firma görseli zorunludur."),
   });
-
 
   useEffect(() => {
     getStock("firms");
@@ -155,49 +148,7 @@ const Firm = () => {
         }}
       >
         {firms && firms.length > 0 ? (
-          firms.map((firm) => (
-            <Card
-              sx={{
-                width: "345px",
-                maxWidth: 345,
-                maxHeight: 400,
-                margin: "10px",
-              }}
-              key={firm._id}
-            >
-              <CardHeader
-                sx={{ height: "150px" }}
-                title={firm.name}
-                subheader={firm.address}
-              />
-              <CardMedia
-                component="img"
-                height="194"
-                image={firm.image}
-                alt={firm.name}
-                sx={{
-                  width: "100%",
-                  height: "150px",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                }}
-              />
-              <CardActions
-                disableSpacing
-                sx={{ display: "flex", justifyContent: "center" }}
-              >
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => deleteStock("firms", firm._id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton aria-label="edit">
-                  <EditIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          ))
+          firms.map((firm) => <FirmCard firm={firm} />)
         ) : (
           <p>Veri yükleniyor veya firma bulunamadı.</p>
         )}
