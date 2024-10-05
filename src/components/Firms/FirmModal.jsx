@@ -51,13 +51,11 @@ const FirmModal = ({ open, handleClose, data, setData }) => {
         validationSchema={firmSchema}
         onSubmit={(values, actions) => {
           if (data && data._id) {
-            // Eğer mevcut bir firma düzenleniyorsa updateStock kullan
             updateStock("firms", values, data._id);
           } else {
-            // Yeni firma ekliyorsa postStock kullan
             postStock("firms", values);
           }
-          setData(null); // Formu temizle
+          setData(null);
           actions.resetForm();
           actions.setSubmitting(false);
           handleClose();

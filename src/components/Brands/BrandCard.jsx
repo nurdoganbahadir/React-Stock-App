@@ -8,7 +8,7 @@ import { Grid, IconButton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import useStockRequests from "../../services/useStockRequests";
 
-const BrandCard = ({ brand }) => {
+const BrandCard = ({ brand, handleOpen }) => {
   const { deleteStock } = useStockRequests();
 
   return (
@@ -41,7 +41,7 @@ const BrandCard = ({ brand }) => {
             <DeleteIcon />
           </IconButton>
           <IconButton aria-label="edit">
-            <EditIcon />
+            <EditIcon onClick={() => handleOpen(brand)} />
           </IconButton>
         </CardActions>
       </Card>
