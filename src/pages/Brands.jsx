@@ -129,9 +129,13 @@ const Brands = () => {
             <Grid item xs={6} md={4} xl={2} key={brand._id}>
               <Card>
                 <CardMedia
-                  sx={{ height: 140 }}
+                  component="img"
+                  sx={{
+                    height: "150px",
+                    objectFit: "contain",
+                    padding: "20px",
+                  }}
                   image={brand.image}
-                  title="green iguana"
                 />
                 <CardContent>
                   <Typography

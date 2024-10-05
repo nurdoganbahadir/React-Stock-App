@@ -20,7 +20,6 @@ const FirmCard = ({ firm }) => {
         />
         <CardMedia
           component="img"
-          height="195"
           image={firm.image}
           alt={firm.name}
           sx={{
