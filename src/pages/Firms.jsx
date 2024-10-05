@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-import { TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
@@ -138,21 +138,13 @@ const Firm = () => {
           )}
         </Formik>
       </Modal>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "2",
-        }}
-      >
+      <Grid container spacing={1}>
         {firms && firms.length > 0 ? (
           firms.map((firm) => <FirmCard firm={firm} />)
         ) : (
           <p>Veri yükleniyor veya firma bulunamadı.</p>
         )}
-      </Box>
+      </Grid>
     </>
   );
 };
