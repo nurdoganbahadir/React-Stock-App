@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
@@ -47,10 +47,14 @@ const Firm = () => {
 
   return (
     <>
-      <h1>FIRMS</h1>
-      <Button onClick={handleOpen} variant="contained">
-        <AddCircleOutlineIcon />
-      </Button>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
+      >
+        <Typography variant="h4">FIRMS</Typography>
+        <Button onClick={handleOpen} variant="contained">
+          <AddCircleOutlineIcon />
+        </Button>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}

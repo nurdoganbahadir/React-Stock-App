@@ -11,7 +11,7 @@ import { Grid } from "@mui/material";
 const FirmCard = ({ firm }) => {
   const { deleteStock } = useStockRequests();
   return (
-    <Grid item xs={6} md={4} xl={2} key={firm._id}>
+    <Grid item xs={12} md={6} xl={3} key={firm._id}>
       <Card>
         <CardHeader
           sx={{ height: "150px" }}
@@ -24,10 +24,9 @@ const FirmCard = ({ firm }) => {
           image={firm.image}
           alt={firm.name}
           sx={{
-            width: "100%",
             height: "150px",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
+            objectFit: "contain",
+            padding: "20px",
           }}
         />
         <CardActions

@@ -51,10 +51,14 @@ const Brands = () => {
 
   return (
     <>
-      <h1>Brands</h1>
-      <Button onClick={handleOpen} variant="contained">
-        <AddCircleOutlineIcon />
-      </Button>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
+      >
+        <Typography variant="h4">BRANDS</Typography>
+        <Button onClick={handleOpen} variant="contained">
+          <AddCircleOutlineIcon />
+        </Button>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
