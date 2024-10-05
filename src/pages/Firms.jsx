@@ -8,6 +8,7 @@ import useStockRequests from "../services/useStockRequests";
 import { useEffect } from "react";
 import FirmCard from "../components/Firms/FirmCard";
 import FirmModal from "../components/Firms/FirmModal";
+import Loading from "../components/Loading";
 
 const Firm = () => {
   const { firms } = useSelector((state) => state.stock);
@@ -50,8 +51,9 @@ const Firm = () => {
             <FirmCard key={firm._id} firm={firm} handleOpen={handleOpen} />
           ))
         ) : (
-          <p>Veri yükleniyor veya firma bulunamadı.</p>
+          <Loading />
         )}
+        
       </Grid>
     </>
   );

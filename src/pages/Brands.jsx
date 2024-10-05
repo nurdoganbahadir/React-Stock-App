@@ -8,6 +8,7 @@ import BrandCard from "../components/Brands/BrandCard";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import BrandModal from "../components/Brands/BrandModal";
+import Loading from "../components/Loading";
 
 const Brands = () => {
   const { brands } = useSelector((state) => state.stock);
@@ -51,7 +52,7 @@ const Brands = () => {
             <BrandCard key={brand._id} brand={brand} handleOpen={handleOpen} />
           ))
         ) : (
-          <p>Veri yükleniyor veya firma bulunamadı.</p>
+          <Loading />
         )}
       </Grid>
     </>
