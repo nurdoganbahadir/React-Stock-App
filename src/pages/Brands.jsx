@@ -1,12 +1,4 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Grid, IconButton, Modal } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { Formik, Form } from "formik";
@@ -16,6 +8,9 @@ import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import BrandCard from "../components/Brands/BrandCard";
+import Typography from "@mui/material/Typography";
+import { Grid, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -126,42 +121,7 @@ const Brands = () => {
       </Modal>
       <Grid container spacing={1}>
         {brands && brands.length > 0 ? (
-          brands.map((brand) => (
-            <Grid item xs={6} md={4} xl={2} key={brand._id}>
-              <Card>
-                <CardMedia
-                  component="img"
-                  sx={{
-                    height: "150px",
-                    objectFit: "contain",
-                    padding: "20px",
-                  }}
-                  image={brand.image}
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    sx={{ textAlign: "center" }}
-                    variant="h5"
-                    component="div"
-                  >
-                    {brand.name}
-                  </Typography>
-                </CardContent>
-                <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => deleteStock("brands", brand._id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton aria-label="edit">
-                    <EditIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))
+          brands.map((brand) => <BrandCard brand={brand} />)
         ) : (
           <p>Veri yükleniyor veya firma bulunamadı.</p>
         )}

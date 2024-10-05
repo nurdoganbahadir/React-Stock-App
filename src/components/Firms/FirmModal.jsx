@@ -56,7 +56,6 @@ const FirmModal = ({ open, handleClose, data, setData }) => {
           } else {
             // Yeni firma ekliyorsa postStock kullan
             postStock("firms", values);
-            console.log(values);
           }
           setData(null); // Formu temizle
           actions.resetForm();
