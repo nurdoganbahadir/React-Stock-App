@@ -75,7 +75,7 @@ const FirmModal = ({ open, handleClose }) => {
                 label="Telefon numarası"
                 name="phone"
                 id="phone"
-                type="text"
+                type="tel"
                 variant="outlined"
                 onChange={handleChange}
                 value={values.phone}
@@ -99,7 +99,7 @@ const FirmModal = ({ open, handleClose }) => {
                 label="Firma logosu"
                 name="image"
                 id="image"
-                type="text"
+                type="url"
                 variant="outlined"
                 onChange={handleChange}
                 value={values.image}
