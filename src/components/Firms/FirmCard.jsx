@@ -8,10 +8,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import useStockRequests from "../../services/useStockRequests";
 import { Grid } from "@mui/material";
 
-const FirmCard = ({ firm }) => {
+const FirmCard = ({ firm, handleOpen }) => {
   const { deleteStock } = useStockRequests();
   return (
-    <Grid item xs={12} md={6} xl={3} key={firm._id}>
+    <Grid item xs={12} md={6} xl={3}>
       <Card>
         <CardHeader
           sx={{ height: "150px" }}
@@ -38,7 +38,7 @@ const FirmCard = ({ firm }) => {
           >
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="edit">
+          <IconButton aria-label="edit" onClick={() => handleOpen(firm)}>
             <EditIcon />
           </IconButton>
         </CardActions>

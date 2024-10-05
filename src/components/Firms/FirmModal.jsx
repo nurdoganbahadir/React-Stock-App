@@ -6,9 +6,10 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useEffect } from "react";
 
-const FirmModal = ({ open, handleClose }) => {
-  const { postStock } = useStockRequests();
+const FirmModal = ({ open, handleClose, data, setData }) => {
+  const { postStock, updateStock } = useStockRequests();
 
   const firmSchema = object({
     name: string().required("Firma ismi zorunludur."),
@@ -32,6 +33,12 @@ const FirmModal = ({ open, handleClose }) => {
     gap: 2,
   };
 
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data]);
+
   return (
     <Modal
       open={open}
@@ -40,14 +47,23 @@ const FirmModal = ({ open, handleClose }) => {
       aria-describedby="modal-modal-description"
     >
       <Formik
-        initialValues={{ name: "", phone: "", address: "", image: "" }}
+        initialValues={data || { name: "", phone: "", address: "", image: "" }}
         validationSchema={firmSchema}
         onSubmit={(values, actions) => {
-          postStock("firms", values);
+          if (data && data._id) {
+            // Eğer mevcut bir firma düzenleniyorsa updateStock kullan
+            updateStock("firms", values, data._id);
+          } else {
+            // Yeni firma ekliyorsa postStock kullan
+            postStock("firms", values);
+            console.log(values);
+          }
+          setData(null); // Formu temizle
           actions.resetForm();
           actions.setSubmitting(false);
           handleClose();
         }}
+        enableReinitialize
       >
         {({
           isSubmitting,

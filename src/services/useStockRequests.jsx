@@ -3,7 +3,6 @@ import {
   fetchFail,
   fetchStart,
   getStockSuccess,
-  postStockSuccess,
 } from "../features/stockSlice";
 import useAxios from "./useAxios";
 
@@ -27,7 +26,7 @@ const useStockRequests = () => {
       getStock(path);
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error);
+      console.log("post error", error);
     }
   };
   const deleteStock = async (path, id) => {
@@ -41,7 +40,18 @@ const useStockRequests = () => {
     }
   };
 
-  return { getStock, postStock, deleteStock };
+  const updateStock = async (path, values, id) => {
+    dispatch(fetchStart());
+    try {
+      await axiosToken.put(`${path}/${id}`, values);
+      getStock(path);
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log("update error:", error);
+    }
+  };
+
+  return { getStock, postStock, deleteStock, updateStock };
 };
 
 export default useStockRequests;

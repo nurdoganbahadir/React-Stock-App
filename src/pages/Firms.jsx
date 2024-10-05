@@ -1,5 +1,5 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Grid, Typography } from "@mui/material";
@@ -13,12 +13,20 @@ const Firm = () => {
   const { firms } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [data, setData] = useState(null); // Seçili firma verisi
 
+  const handleOpen = (firm = null) => {
+    setData(firm); // Firma verisi varsa set et, yoksa null
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setData(null); // Modal kapanınca datayı sıfırla
+  };
   useEffect(() => {
     getStock("firms");
-  }, [firms]);
+  }, []);
 
   return (
     <>
@@ -26,14 +34,21 @@ const Firm = () => {
         sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
       >
         <Typography variant="h4">FIRMS</Typography>
-        <Button onClick={handleOpen} variant="contained">
+        <Button onClick={() => handleOpen()} variant="contained">
           <AddCircleOutlineIcon />
         </Button>
       </Box>
-      <FirmModal open={open} handleClose={handleClose} />
+      <FirmModal
+        open={open}
+        handleClose={handleClose}
+        data={data}
+        setData={setData}
+      />
       <Grid container spacing={1}>
         {firms && firms.length > 0 ? (
-          firms.map((firm) => <FirmCard firm={firm} />)
+          firms.map((firm) => (
+            <FirmCard key={firm._id} firm={firm} handleOpen={handleOpen} />
+          ))
         ) : (
           <p>Veri yükleniyor veya firma bulunamadı.</p>
         )}

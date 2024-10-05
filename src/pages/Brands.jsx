@@ -69,6 +69,7 @@ const Brands = () => {
           initialValues={{ name: "", image: "" }}
           validationSchema={firmSchema}
           onSubmit={(values, actions) => {
+            console.log(values);
             postStock("brands", values);
             actions.resetForm();
             actions.setSubmitting(false);
