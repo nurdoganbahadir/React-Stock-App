@@ -22,12 +22,12 @@ const useApiRequests = () => {
         `${process.env.REACT_APP_BASE_URL}/auth/login`,
         userData
       );
-      toastSuccessNotify("Login işlemi başarılı");
+      toastSuccessNotify("Giriş işlemi başarılı.");
       dispatch(loginSuccess(data));
       navigate("stock");
       console.log(data);
     } catch (error) {
-      toastErrorNotify("Login işlemi başarısız");
+      toastErrorNotify("Giriş işlemi başarısız. Lütfen tekrar deneyiniz.");
       dispatch(fetchFail());
       console.log(error);
     }

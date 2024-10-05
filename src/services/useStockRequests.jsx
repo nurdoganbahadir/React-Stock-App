@@ -1,10 +1,7 @@
 import { useDispatch } from "react-redux";
-import {
-  fetchFail,
-  fetchStart,
-  getStockSuccess,
-} from "../features/stockSlice";
+import { fetchFail, fetchStart, getStockSuccess } from "../features/stockSlice";
 import useAxios from "./useAxios";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useStockRequests = () => {
   const { axiosToken } = useAxios();
@@ -24,9 +21,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.post(path, values);
       getStock(path);
+      toastSuccessNotify("Ekleme başarılı oldu.");
     } catch (error) {
       dispatch(fetchFail());
-      console.log("post error", error);
+      toastErrorNotify("Ekleme başarısız oldu.");
     }
   };
   const deleteStock = async (path, id) => {
@@ -34,9 +32,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.delete(`${path}/${id}`);
       getStock(path);
+      toastSuccessNotify("Silme işlemi başarılı oldu.");
     } catch (error) {
       dispatch(fetchFail());
-      console.log(error);
+      toastErrorNotify("Silme işlemi başarısız oldu.");
     }
   };
 
@@ -45,9 +44,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.put(`${path}/${id}`, values);
       getStock(path);
+      toastSuccessNotify("Bilgiler başarıyla güncellendi.");
     } catch (error) {
       dispatch(fetchFail());
-      console.log("update error:", error);
+      toastErrorNotify("Bilgilerin güncellenmesi başarısız oldu.");
     }
   };
 

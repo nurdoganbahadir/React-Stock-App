@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import useStockRequests from "../../services/useStockRequests";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const FirmCard = ({ firm, handleOpen }) => {
   const { deleteStock } = useStockRequests();
@@ -18,6 +18,7 @@ const FirmCard = ({ firm, handleOpen }) => {
           title={firm.name}
           subheader={firm.address}
         />
+
         <CardMedia
           component="img"
           image={firm.image}
@@ -28,9 +29,10 @@ const FirmCard = ({ firm, handleOpen }) => {
             padding: "20px",
           }}
         />
+        <Typography sx={{ textAlign: "center" }}>{firm.phone}</Typography>
         <CardActions
           disableSpacing
-          sx={{ display: "flex", justifyContent: "center" }}
+          sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}
         >
           <IconButton
             aria-label="delete"
