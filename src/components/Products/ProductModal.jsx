@@ -28,6 +28,7 @@ const style = {
 const ProductModal = ({ open, handleClose, data, setData }) => {
   const { postStock } = useStockRequests();
   const { categories, brands } = useSelector((state) => state.stock);
+ 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(e.target.name);
