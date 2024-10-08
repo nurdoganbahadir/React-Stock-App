@@ -17,12 +17,13 @@ const stockSlice = createSlice({
   reducers: {
     fetchStart: (state) => {
       state.loading = true;
+      state.error = false;
     },
     getStockSuccess: (state, { payload }) => {
       state.loading = false;
       state[payload.path] = payload.data;
     },
-    
+
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
