@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 
 import ProductTable from "../components/Products/ProductTable";
 import ProductModal from "../components/Products/ProductModal";
+import { NoDataMessage, TableSkelthon } from "../components/Messages";
 
 const Products = () => {
-  const { products } = useSelector((state) => state.stock);
+  const { products, loading, error } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
 
   const initialState = { categoryId: "", brandId: "", name: "" };
@@ -43,7 +44,9 @@ const Products = () => {
         data={data}
         setData={setData}
       />
-      {products.length > 0 && <ProductTable />}
+      {loading && <TableSkelthon />}
+      {!loading && !products.length && <NoDataMessage />}
+      {!loading && products.length > 0 && <ProductTable />}
     </>
   );
 };
