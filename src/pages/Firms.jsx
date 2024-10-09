@@ -9,9 +9,10 @@ import { useEffect } from "react";
 import FirmCard from "../components/Firms/FirmCard";
 import FirmModal from "../components/Firms/FirmModal";
 import Loading from "../components/Loading";
+import { NoDataMessage } from "../components/Messages";
 
 const Firm = () => {
-  const { firms } = useSelector((state) => state.stock);
+  const { firms, loading } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState(null); // Seçili firma verisi
@@ -45,16 +46,17 @@ const Firm = () => {
         data={data}
         setData={setData}
       />
-      <Grid container spacing={1}>
-        {firms && firms.length > 0 ? (
-          firms.map((firm) => (
+      {loading ? (
+        <Loading />
+      ) : firms && firms.length > 0 ? (
+        <Grid container spacing={1}>
+          {firms.map((firm) => (
             <FirmCard key={firm._id} firm={firm} handleOpen={handleOpen} />
-          ))
-        ) : (
-          <Loading />
-        )}
-        
-      </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <NoDataMessage />
+      )}
     </>
   );
 };
