@@ -1,6 +1,5 @@
 import { AreaChart } from "@tremor/react";
 import { useSelector } from "react-redux";
-import Stack from "@mui/material/Stack";
 const dataFormatter = (number) =>
   `$${Intl.NumberFormat("tr").format(number).toString()}`;
 

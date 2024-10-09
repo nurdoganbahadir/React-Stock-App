@@ -7,6 +7,7 @@ import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useStockRequests from "../../services/useStockRequests";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function SaleModal({ open, handleClose, data, setData }) {
   const navigate = useNavigate();
@@ -116,8 +117,12 @@ export default function SaleModal({ open, handleClose, data, setData }) {
               onChange={handleChange}
               required
             />
-            <Button type="submit" variant="contained" size="large">
-              {data?._id ? "Update Sale" : "Add New Sale"}
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ backgroundColor: "#023373" }}
+            >
+              <CheckCircleIcon />
             </Button>
           </Box>
         </Box>

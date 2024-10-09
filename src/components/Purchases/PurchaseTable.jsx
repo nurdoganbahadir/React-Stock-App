@@ -16,9 +16,10 @@ const PurchaseTable = ({ setData, handleOpen }) => {
     {
       field: "createdAt",
       headerName: "Date",
-      minWidth: 150,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
       renderCell: ({ row }) => {
         return new Date(row.createdAt).toLocaleString("de-DE");
       },
@@ -27,56 +28,63 @@ const PurchaseTable = ({ setData, handleOpen }) => {
       field: "firmId",
       headerName: "Firm",
       flex: 1,
-      minWidth: 100,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
       renderCell: ({ row }) => row?.firmId?.name,
     },
     {
       field: "brandId",
       headerName: "Brand",
       flex: 1,
-      minWidth: 100,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
       renderCell: ({ row }) => row?.brandId?.name,
     },
     {
       field: "productID",
       headerName: "Product",
       flex: 1,
-      minWidth: 100,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
       renderCell: ({ row }) => row?.productId?.name,
     },
     {
       field: "quantity",
       headerName: "Quantity",
-      minWidth: 50,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
     },
     {
       field: "price",
       headerName: "Price",
-      minWidth: 50,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
     },
     {
       field: "amount",
       headerName: "Amount",
-      minWidth: 50,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
     },
     {
       field: "actions",
       headerName: "Actions",
-      minWidth: 40,
       headerAlign: "center",
       align: "center",
+      headerClassName: "custom-header",
+      cellClassName: "custom-cell",
       renderCell: ({
         row: { brandId, productId, quantity, price, firmId, _id },
       }) => {
@@ -103,14 +111,21 @@ const PurchaseTable = ({ setData, handleOpen }) => {
     },
   ];
   return (
-    <Box sx={{ width: "100%", mt: 4 }}>
+    <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <DataGrid
         rows={purchases}
         columns={columns}
-        pageSizeOptions={[20, 50, 75, 100]} //? sayfa basina satir sayisi
         disableRowSelectionOnClick
         slots={{ toolbar: GridToolbar }}
         getRowId={getRowId}
+        sx={{
+          "& .custom-header, & .custom-cell": {
+            fontSize: "1rem",
+            "@media (max-width: 600px)": {
+              fontSize: "0.8rem",
+            },
+          },
+        }}
       />
     </Box>
   );

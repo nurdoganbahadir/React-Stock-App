@@ -9,7 +9,7 @@ import ProductModal from "../components/Products/ProductModal";
 import { NoDataMessage, TableSkelthon } from "../components/Messages";
 
 const Products = () => {
-  const { products, loading, error } = useSelector((state) => state.stock);
+  const { products, loading } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
 
   const initialState = { categoryId: "", brandId: "", name: "" };

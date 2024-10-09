@@ -8,6 +8,7 @@ import useStockRequests from "../../services/useStockRequests";
 import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function PurchaseModal({ open, handleClose, data, setData }) {
   const navigate = useNavigate();
@@ -142,8 +143,12 @@ export default function PurchaseModal({ open, handleClose, data, setData }) {
               onChange={handleChange}
               required
             />
-            <Button type="submit" variant="contained" size="large">
-              {data?._id ? "Update Purchase" : "Add New Purchase"}
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ backgroundColor: "#023373" }}
+            >
+              <CheckCircleIcon />
             </Button>
           </Box>
         </Box>

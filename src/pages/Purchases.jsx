@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import useStockRequests from "../services/useStockRequests";
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { TableSkelthon, NoDataMessage } from "../components/Messages";
 import { useSelector } from "react-redux";
 import PurchaseModal from "../components/Purchases/PurchaseModal";
 import PurchaseTable from "../components/Purchases/PurchaseTable";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const Purchases = () => {
   const { getStock } = useStockRequests();
@@ -36,10 +37,15 @@ const Purchases = () => {
   }, []);
 
   return (
-    <Container maxWidth="xl">
-      <Button variant="contained" onClick={handleOpen} sx={{ mb: 2 }}>
-        New Purchase
-      </Button>
+    <>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
+      >
+        <Typography variant="h4">PURCHASES</Typography>
+        <Button onClick={handleOpen} variant="contained" sx={{ mb: 2 }}>
+          <AddCircleOutlineIcon />
+        </Button>
+      </Box>
 
       {loading && <TableSkelthon />}
       {!loading && !purchases?.length && <NoDataMessage />}
@@ -53,7 +59,7 @@ const Purchases = () => {
         data={data}
         setData={setData}
       />
-    </Container>
+    </>
   );
 };
 

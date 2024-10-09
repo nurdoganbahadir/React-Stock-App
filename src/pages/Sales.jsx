@@ -27,9 +27,9 @@ const Sales = () => {
     getStock("sales");
     getStock("brands");
   }, []);
-  
+
   return (
-    <Container maxWidth="xl">
+    <>
       <Box
         sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
       >
@@ -52,7 +52,7 @@ const Sales = () => {
         data={data}
         setData={setData}
       />
-    </Container>
+    </>
   );
 };
 
