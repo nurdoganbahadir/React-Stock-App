@@ -10,7 +10,7 @@ import useStockRequests from "../../services/useStockRequests";
 
 export default function SaleModal({ open, handleClose, data, setData }) {
   const navigate = useNavigate();
-  const { postStock, putStock } = useStockRequests();
+  const { postStock, updateStock } = useStockRequests();
   const { products, brands } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ export default function SaleModal({ open, handleClose, data, setData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (data._id) {
-      putStock("sales", data);
+      updateStock("sales", data);
     } else {
       postStock("sales", data);
     }

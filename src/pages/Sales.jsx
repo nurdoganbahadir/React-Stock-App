@@ -1,13 +1,14 @@
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { NoDataMessage, TableSkelthon } from "../components/Messages";
 import { useSelector } from "react-redux";
 import useStockRequests from "../services/useStockRequests";
 import { useEffect, useState } from "react";
 import SaleModal from "../components/Sales/SaleModal";
 import SaleTable from "../components/Sales/SaleTable";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const Sales = () => {
-  const { getStock  } = useStockRequests();
+  const { getStock } = useStockRequests();
   const { sales, loading } = useSelector((state) => state.stock);
 
   const [open, setOpen] = useState(false);
@@ -26,11 +27,17 @@ const Sales = () => {
     getStock("sales");
     getStock("brands");
   }, []);
+  
   return (
     <Container maxWidth="xl">
-      <Button variant="contained" onClick={handleOpen} sx={{ mb: 2 }}>
-        New Sale
-      </Button>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", my: "1.5rem" }}
+      >
+        <Typography variant="h4">SALES</Typography>
+        <Button onClick={handleOpen} sx={{ mb: 2 }} variant="contained">
+          <AddCircleOutlineIcon />
+        </Button>
+      </Box>
 
       {loading && <TableSkelthon />}
       {!loading && !sales?.length && <NoDataMessage />}

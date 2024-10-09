@@ -39,10 +39,10 @@ const useStockRequests = () => {
     }
   };
 
-  const updateStock = async (path, values, id) => {
+  const updateStock = async (path, data) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.put(`${path}/${id}`, values);
+      await axiosToken.put(`${path}/${data._id}`, data);
       getStock(path);
       toastSuccessNotify("The information has been successfully updated.");
     } catch (error) {
