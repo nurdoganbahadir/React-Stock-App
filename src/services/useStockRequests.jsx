@@ -21,10 +21,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.post(path, values);
       getStock(path);
-      toastSuccessNotify("Ekleme başarılı oldu.");
+      toastSuccessNotify("The splicing was successful.");
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Ekleme başarısız oldu.");
+      toastErrorNotify("Insertion failed.");
     }
   };
   const deleteStock = async (path, id) => {
@@ -32,10 +32,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.delete(`${path}/${id}`);
       getStock(path);
-      toastSuccessNotify("Silme işlemi başarılı oldu.");
+      toastSuccessNotify("The deletion was successful.");
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Silme işlemi başarısız oldu.");
+      toastErrorNotify("The deletion failed.");
     }
   };
 
@@ -44,10 +44,10 @@ const useStockRequests = () => {
     try {
       await axiosToken.put(`${path}/${id}`, values);
       getStock(path);
-      toastSuccessNotify("Bilgiler başarıyla güncellendi.");
+      toastSuccessNotify("The information has been successfully updated.");
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Bilgilerin güncellenmesi başarısız oldu.");
+      toastErrorNotify("The update of the information failed.");
     }
   };
 

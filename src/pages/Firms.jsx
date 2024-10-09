@@ -15,16 +15,16 @@ const Firm = () => {
   const { firms, loading } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
-  const [data, setData] = useState(null); // Seçili firma verisi
+  const [data, setData] = useState(null); 
 
   const handleOpen = (firm = null) => {
-    setData(firm); // Firma verisi varsa set et, yoksa null
+    setData(firm);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setData(null); // Modal kapanınca datayı sıfırla
+    setData(null);
   };
   useEffect(() => {
     getStock("firms");
