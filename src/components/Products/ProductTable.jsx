@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import useStockRequests from "../../services/useStockRequests";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/material";
 
@@ -88,6 +88,7 @@ const ProductTable = () => {
         columns={columns}
         disableRowSelectionOnClick
         getRowId={getRowId}
+        slots={{ toolbar: GridToolbar }}
         sx={{
           "& .custom-header, & .custom-cell": {
             fontSize: "1rem",
