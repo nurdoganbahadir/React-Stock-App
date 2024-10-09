@@ -26,7 +26,7 @@ export const CardSkeleton = ({ children }) => {
 export const NoDataMessage = () => {
   return (
     <Stack sx={{ width: "100%" }} spacing={2}>
-      <Alert severity="warning">Gösterilecek veri yok</Alert>
+      <Alert severity="warning">No data was found on this page.</Alert>
     </Stack>
   );
 };

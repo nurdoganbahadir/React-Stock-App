@@ -9,9 +9,10 @@ import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import BrandModal from "../components/Brands/BrandModal";
 import Loading from "../components/Loading";
+import { NoDataMessage } from "../components/Messages";
 
 const Brands = () => {
-  const { brands } = useSelector((state) => state.stock);
+  const { brands, loading } = useSelector((state) => state.stock);
   const { getStock } = useStockRequests();
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState(null);
@@ -46,15 +47,17 @@ const Brands = () => {
         data={data}
         setData={setData}
       />
-      <Grid container spacing={1}>
-        {brands && brands.length > 0 ? (
-          brands.map((brand) => (
+      {loading ? (
+        <Loading />
+      ) : brands.length === 0 ? (
+        <NoDataMessage />
+      ) : (
+        <Grid container spacing={1}>
+          {brands.map((brand) => (
             <BrandCard key={brand._id} brand={brand} handleOpen={handleOpen} />
-          ))
-        ) : (
-          <Loading />
-        )}
-      </Grid>
+          ))}
+        </Grid>
+      )}
     </>
   );
 };
