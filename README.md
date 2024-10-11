@@ -37,4 +37,4 @@ This will install the necessary dependencies. After that, you can run:
 
 # How does my project look
 
-![Redux Toolkit](./redux-intro.gif)
+![Redux Toolkit](./stock-app.gif)
